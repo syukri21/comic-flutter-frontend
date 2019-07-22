@@ -35,7 +35,7 @@ class BannerCarousel extends StatelessWidget {
     print(MediaQuery.of(context).size.width);
     return CarouselSlider(
       aspectRatio: 7.5 / 4,
-      viewportFraction: 0.5,
+      viewportFraction: 0.92,
       enlargeCenterPage: true,
       items: comics.map((i) {
         return Builder(

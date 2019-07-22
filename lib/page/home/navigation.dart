@@ -7,8 +7,8 @@ class Navigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      height: 80.0,
+      margin: EdgeInsets.only(top: 0, bottom: 10),
+      height: 70.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: menus
@@ -55,7 +55,7 @@ class NavigationItem extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
             image: NetworkImage(
-                "https://i.pinimg.com/originals/c5/5a/3d/c55a3d18e62cb0397606d46673fa7172.jpg"),
+                "https://i2.wp.com/kiryuu.co/wp-content/uploads/2019/06/I-Am-The-Sorcerer-King.jpg"),
             fit: BoxFit.cover,
             alignment: Alignment.topCenter),
         borderRadius: BorderRadius.circular(10),
