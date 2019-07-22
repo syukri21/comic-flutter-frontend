@@ -4,11 +4,11 @@ import 'package:comic/util/margin.dart';
 
 import 'package:comic/util/dummy.dart' as dummy;
 
-class NewComics extends StatelessWidget {
+class PopularComics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
           Title(),
@@ -29,7 +29,7 @@ class Title extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("List"),
+            Text("Popular on Manga Ree"),
             GestureDetector(
               child: Icon(Icons.arrow_forward),
             ),

@@ -1,4 +1,4 @@
-import 'package:comic/util/position.dart';
+import 'package:comic/util/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -9,7 +9,7 @@ class Navigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 0),
-      height: 70.0,
+      height: 60.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: menus
@@ -56,7 +56,7 @@ class NavigationItem extends StatelessWidget {
           BoxShadow(
             color: Color.fromRGBO(169, 36, 47, 0.8),
             spreadRadius: -5,
-            offset: Offset(0, 4),
+            offset: Offset(0, 0),
             blurRadius: 15,
           ),
         ],
@@ -75,7 +75,7 @@ class NavigationItem extends StatelessWidget {
                 ]),
           )),
       margin: EdgeInsets.only(
-          bottom: 20, left: this.margin.left, right: this.margin.right),
+          bottom: 10, left: this.margin.left, right: this.margin.right),
     );
   }
 }
