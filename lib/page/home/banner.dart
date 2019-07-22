@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 const comics = [
   {
@@ -34,16 +35,18 @@ class BannerCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);
     return CarouselSlider(
-      aspectRatio: 6 / 4,
-      viewportFraction: 0.94,
+      aspectRatio: 7 / 4,
+      viewportFraction: 0.9,
       enlargeCenterPage: true,
       items: comics.map((i) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
               width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 20.0),
+              margin: EdgeInsets.only(left:5, right: 5, top: 0, bottom: 20 ),
+            
               decoration: BoxDecoration(
+                color: Colors.white,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, .5),
@@ -53,10 +56,7 @@ class BannerCarousel extends StatelessWidget {
                   ),
                 ],
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: NetworkImage(i["image"]),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter),
+                image: DecorationImage(image: NetworkImage(i["image"]), fit: BoxFit.cover, alignment: Alignment.topCenter)
               ),
             );
           },
