@@ -1,3 +1,4 @@
+import 'package:comic/util/position.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -7,7 +8,7 @@ class Navigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0, bottom: 10),
+      margin: EdgeInsets.only(top: 0),
       height: 70.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -85,9 +86,4 @@ class NavigationItem extends StatelessWidget {
           bottom: 20, left: this.margin.left, right: this.margin.right),
     );
   }
-}
-
-class Position {
-  double left = 10;
-  double right = 0;
 }

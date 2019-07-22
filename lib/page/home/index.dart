@@ -1,6 +1,7 @@
 import 'package:comic/global/appbar/index.dart';
 import 'package:comic/page/home/banner.dart';
 import 'package:comic/page/home/navigation.dart';
+import 'package:comic/page/home/new-comics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               BannerCarousel(),
               Navigation(),
+              NewComics(),
             ],
           ),
         ));
