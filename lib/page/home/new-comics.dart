@@ -91,21 +91,11 @@ class Comic extends StatelessWidget {
   final item;
   final index;
   final length;
+  Margin margin;
 
-  Position get margin {
-    Position position = Position();
-    if (this.index == 0) {
-      position.left = 18.0;
-      return position;
-    } else if (this.index == (this.length - 1)) {
-      position.right = 18.0;
-      return position;
-    }
-    return position;
+  Comic({Key key, this.item, this.index, this.length}) : super(key: key) {
+    this.margin = Margin(index: this.index, length: this.length);
   }
-
-  const Comic({Key key, @required this.item, this.index, this.length})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -33,19 +33,11 @@ class NavigationItem extends StatelessWidget {
   final index;
   final length;
 
-  const NavigationItem({Key key, @required this.menu, this.index, this.length})
-      : super(key: key);
+  Margin margin;
 
-  Position get margin {
-    Position position = Position();
-    if (this.index == 0) {
-      position.left = 18.0;
-      return position;
-    } else if (this.index == (this.length - 1)) {
-      position.right = 18.0;
-      return position;
-    }
-    return position;
+  NavigationItem({Key key, @required this.menu, this.index, this.length})
+      : super(key: key) {
+    this.margin = Margin(index: this.index, length: this.length);
   }
 
   @override
