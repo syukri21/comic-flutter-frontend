@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:comic/util/margin.dart';
 
-import 'package:comic/util/dummy.dart' as dummy;
-
 import 'package:comic/graphql/query/comics.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -88,7 +86,7 @@ class ListComics extends StatelessWidget {
         List comics = result.data["comics"];
 
         return Container(
-          height: MediaQuery.of(context).size.height / 3,
+          height: 180,
           child: ListView.builder(
             itemCount: comics.length,
             scrollDirection: Axis.horizontal,
@@ -122,8 +120,8 @@ class Comic extends StatelessWidget {
       margin: EdgeInsets.only(
         left: this.margin.left,
         right: this.margin.right,
-        top: 5,
-        bottom: 20,
+        top: 0,
+        bottom: 9,
       ),
       width: 120,
       decoration: BoxDecoration(
@@ -134,7 +132,7 @@ class Comic extends StatelessWidget {
             blurRadius: 5,
             offset: Offset(0, 4),
             color: Color.fromRGBO(0, 0, 0, 0.3),
-            spreadRadius: 2,
+            spreadRadius: 0,
           ),
         ],
         image: DecorationImage(

@@ -1,6 +1,6 @@
 String readComics = """
-  query Comics(\$first: Int, \$orderBy: ComicOrderByInput) {
-    comics(first: \$first, orderBy: \$orderBy) {
+  query Comics(\$first: Int, \$orderBy: ComicOrderByInput, \$last: Int) {
+    comics(first: \$first, orderBy: \$orderBy, last: \$last) {
       id
       title
       japaneseTitle
