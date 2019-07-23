@@ -1,8 +1,10 @@
+import 'package:comic/graphql/query/comics.dart';
+import 'package:comic/page/home/list-comic.dart';
+import 'package:comic/page/home/list-title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:comic/util/margin.dart';
 
-import 'package:comic/util/dummy.dart' as dummy;
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class PopularComics extends StatelessWidget {
   @override
@@ -11,7 +13,7 @@ class PopularComics extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
-          Title(),
+          ListTitle(title: "Popular on Manga Ree"),
           ListComics(),
         ],
       ),
@@ -43,43 +45,33 @@ class Title extends StatelessWidget {
 class ListComics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 4,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: dummy.comics
-            .asMap()
-            .map((i, item) => MapEntry(
-                i,
-                Comic(
-                  item: item,
-                  index: i,
-                  length: dummy.comics.length,
-                )))
-            .values
-            .toList(),
-      ),
-    );
-  }
-}
+    return Query(
+      options: QueryOptions(document: readComics, variables: {
+        'first': 10,
+        'orderBy': 'rating_DESC',
+      }),
+      builder: (QueryResult result, {VoidCallback refetch}) {
+        if (result.errors != null) return Text(result.errors.toString());
 
-class Comic extends StatelessWidget {
-  final item;
-  final index;
-  final length;
-  Margin margin;
+        if (result.loading) return Text("Loading..");
 
-  Comic({Key key, this.item, this.index, this.length}) : super(key: key) {
-    this.margin = Margin(index: this.index, length: this.length);
-  }
+        List comics = result.data["comics"];
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: this.margin.left, right: this.margin.right),
-      child: Image(
-        image: NetworkImage(this.item["image"]),
-      ),
+        return Container(
+          height: 180,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int index) {
+              return Comic(
+                index: index,
+                item: comics[index],
+                length: comics.length,
+              );
+            },
+            itemCount: comics.length,
+          ),
+        );
+      },
     );
   }
 }
