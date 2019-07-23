@@ -1,5 +1,7 @@
+import 'package:comic/graphql/graphql.dart';
 import 'package:comic/page/home/index.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() {
   runApp(ComicApp());
@@ -8,14 +10,20 @@ void main() {
 class ComicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Comic",
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-              elevation: 0, color: Color.fromRGBO(245, 245, 245, 1)),
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: Color(0xffF5F5F5),
+    return GraphQLProvider(
+      client: GraphQL.client,
+      child: CacheProvider(
+        child: MaterialApp(
+          title: "Comic",
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                elevation: 0, color: Color.fromRGBO(245, 245, 245, 1)),
+            primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: Color(0xffF5F5F5),
+          ),
+          home: HomePage(title: "Manga Ree"),
         ),
-        home: HomePage(title: "Manga Ree"));
+      ),
+    );
   }
 }
