@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,6 +27,9 @@ dependencies:
   graphql_flutter: ^1.0.0
   shimmer: ^1.0.0
   transparent_image: ^1.0.0
+  cached_network_image: ^1.1.1
+  flutter_svg: ^0.13.1
+
 
 
 
@@ -53,6 +56,9 @@ flutter:
 
   assets:
     - assets/loading.gif
+    - assets/manga-text.svg
+    - assets/mmanga.jpg
+    - assets/nav.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

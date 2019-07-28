@@ -49,6 +49,7 @@ class ListComics extends StatelessWidget {
       options: QueryOptions(document: readComics, variables: {
         'first': 10,
         'orderBy': 'rating_DESC',
+        "firstChapter": 1
       }),
       builder: (QueryResult result, {VoidCallback refetch}) {
         if (result.errors != null) return Text(result.errors.toString());

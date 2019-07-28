@@ -1,9 +1,9 @@
+import 'package:comic/graphql/query/comic-with-chapter.dart';
 import 'package:comic/page/home/list-comic.dart';
 import 'package:comic/page/home/list-title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:comic/graphql/query/comics.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class NewComics extends StatelessWidget {
@@ -13,7 +13,7 @@ class NewComics extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 10),
       child: Column(
         children: <Widget>[
-          ListTitle(title: "New List"),
+          ListTitle(title: "New Comics"),
           ListComics(),
         ],
       ),
@@ -26,11 +26,8 @@ class ListComics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        document: readComics,
-        variables: {
-          'first': 10,
-          'orderBy': 'postedOn_DESC',
-        },
+        document: readComicWithChapters,
+        variables: {'first': 10, 'orderBy': 'updateOn_DESC', 'firstChapter': 1},
       ),
       builder: (QueryResult result, {VoidCallback refetch}) {
         if (result.errors != null) {

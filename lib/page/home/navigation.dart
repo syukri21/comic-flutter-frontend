@@ -1,8 +1,11 @@
+import 'package:comic/graphql/query/genres.dart';
+import 'package:comic/page/home/style/navigation.dart';
 import 'package:comic/util/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-const menus = ["Category", "Popular", "Manga", "Manwha", "Isekai"];
+import 'loading/navigation.dart';
 
 class Navigation extends StatelessWidget {
   @override
@@ -10,20 +13,34 @@ class Navigation extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 0),
       height: 60.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: menus
-            .asMap()
-            .map((i, menu) => MapEntry(
-                i,
-                NavigationItem(
-                  menu: menu,
-                  index: i,
-                  length: menus.length,
-                )))
-            .values
-            .toList(),
-      ),
+      child: NavigationQuery(),
+    );
+  }
+}
+
+class NavigationQuery extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Query(
+      options: QueryOptions(document: readGenres),
+      builder: (QueryResult result, {VoidCallback refetch}) {
+        if (result.errors != null) return Text("errors");
+        if (result.loading) return LoadingNavigation();
+
+        List genres = result.data["genres"];
+
+        return ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext context, int index) {
+            return NavigationItem(
+              menu: genres[index]["genre"],
+              index: index,
+              length: genres.length,
+            );
+          },
+          itemCount: genres.length,
+        );
+      },
     );
   }
 }
@@ -33,12 +50,12 @@ class NavigationItem extends StatelessWidget {
   final index;
   final length;
 
-  Margin margin;
+  Margin get margin {
+    return Margin(index: this.index, length: this.length);
+  }
 
   NavigationItem({Key key, @required this.menu, this.index, this.length})
-      : super(key: key) {
-    this.margin = Margin(index: this.index, length: this.length);
-  }
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,36 +63,24 @@ class NavigationItem extends StatelessWidget {
       width: 150,
       height: 50,
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-                "https://i2.wp.com/kiryuu.co/wp-content/uploads/2019/06/I-Am-The-Sorcerer-King.jpg"),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Color.fromRGBO(169, 36, 47, 0.8),
-            spreadRadius: -5,
-            offset: Offset(0, 0),
-            blurRadius: 15,
-          ),
-        ],
+        color: Colors.white,
+        image: decorationImage,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: <BoxShadow>[boxShadow],
       ),
       child: Container(
-          child: Text(menu, style: TextStyle(color: Colors.white)),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromRGBO(169, 36, 47, 0.4),
-                  Color.fromRGBO(169, 36, 47, 0.8)
-                ]),
-          )),
+        child: Text(menu, style: TextStyle(color: Colors.white)),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          gradient: linearGradienRed,
+        ),
+      ),
       margin: EdgeInsets.only(
-          bottom: 10, left: this.margin.left, right: this.margin.right),
+        bottom: 10,
+        left: this.margin.left,
+        right: this.margin.right,
+      ),
     );
   }
 }
