@@ -15,14 +15,14 @@ class ComicApp extends StatelessWidget {
       child: CacheProvider(
         child: MaterialApp(
           title: "Comic",
+          initialRoute: "/",
+          routes: {"/": (context) => HomePage(title: "Manga Ree")},
           theme: ThemeData(
             appBarTheme: AppBarTheme(
               elevation: 0,
               color: Color.fromRGBO(245, 245, 245, 1),
             ),
-            scaffoldBackgroundColor: Color(0xffF5F5F5),
           ),
-          home: HomePage(title: "Manga Ree"),
         ),
       ),
     );

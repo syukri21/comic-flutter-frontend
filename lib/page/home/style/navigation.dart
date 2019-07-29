@@ -16,7 +16,7 @@ BoxShadow boxShadow = BoxShadow(
 );
 
 LinearGradient linearGradienRed = LinearGradient(
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-  colors: [Color.fromRGBO(169, 36, 47, 0.4), Color.fromRGBO(169, 36, 47, 0.8)],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [Color.fromRGBO(169, 36, 47, 0.7), Color.fromRGBO(169, 36, 47, 0.9)],
 );

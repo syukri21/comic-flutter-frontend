@@ -50,7 +50,6 @@ class _BannerCarouselState extends State<BannerCarousel> {
   int centerIndex = 0;
 
   void _handlePageChanged(e) {
-    print(e);
     setState(() {
       centerIndex = e;
     });
@@ -103,7 +102,7 @@ class BannerCarauselItem extends StatelessWidget {
     }
 
     return LinearGradient(
-      colors: <Color>[Colors.black54, Colors.transparent],
+      colors: <Color>[Colors.black87, Colors.transparent],
       begin: Alignment.bottomCenter,
       end: Alignment.topCenter,
     );
@@ -113,7 +112,7 @@ class BannerCarauselItem extends StatelessWidget {
     if (!isCenter) return null;
 
     return Text(
-      item["title"],
+      item["title"].replaceAll("Bahasa Indonesia", ""),
       style: TextStyle(color: Colors.white, fontFamily: "Farro"),
       textAlign: TextAlign.center,
     );
@@ -143,7 +142,7 @@ class BannerCarauselItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               gradient: gradientColor,
             ),
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(10),
             child: Align(
               child: title,
               alignment: Alignment.bottomCenter,

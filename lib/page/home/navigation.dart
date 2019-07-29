@@ -12,7 +12,7 @@ class Navigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 0),
-      height: 60.0,
+      height: 55.0,
       child: NavigationQuery(),
     );
   }
@@ -61,10 +61,8 @@ class NavigationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 50,
       decoration: BoxDecoration(
         color: Colors.white,
-        image: style.decorationImage,
         borderRadius: BorderRadius.circular(15),
         boxShadow: <BoxShadow>[style.boxShadow],
       ),
@@ -72,12 +70,12 @@ class NavigationItem extends StatelessWidget {
         child: Text(menu, style: TextStyle(color: Colors.white)),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           gradient: style.linearGradienRed,
         ),
       ),
       margin: EdgeInsets.only(
-        bottom: 10,
+        bottom: 15,
         left: this.margin.left,
         right: this.margin.right,
       ),
