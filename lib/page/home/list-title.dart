@@ -17,7 +17,10 @@ class ListTitle extends StatelessWidget {
           children: [
             Text(this.title),
             GestureDetector(
-              child: Icon(Icons.arrow_forward),
+              child: Icon(
+                Icons.arrow_forward,
+                color: Color.fromRGBO(169, 36, 47, 0.6),
+              ),
             ),
           ],
         ),

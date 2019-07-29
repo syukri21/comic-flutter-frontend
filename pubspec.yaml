@@ -85,6 +85,20 @@ flutter:
     - family: Fascinate
       fonts:
       - asset: fonts/Fascinate-Regular.ttf
+    - family: Farro
+      fonts:
+      - asset: fonts/Farro-Regular.ttf
+      - asset: fonts/Farro-Bold.ttf
+        weight: 700
+      - asset: fonts/Farro-light.ttf
+        weight: 300
+      - asset: fonts/Farro-light.ttf
+        weight: 500
+      
+      
+
+
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -19,16 +19,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarComic.getAppBar(widget.title),
-        body: Container(
-          child: ListView(
-            children: <Widget>[
-              BannerCarousel(),
-              Navigation(),
-              NewComics(),
-              PopularComics(),
-            ],
-          ),
-        ));
+      appBar: AppBarComic.getAppBar(widget.title),
+      body: Container(
+        child: ListView(
+          children: <Widget>[
+            BannerCarouselQuery(),
+            Navigation(),
+            NewComics(),
+            PopularComics(),
+          ],
+        ),
+      ),
+    );
   }
 }

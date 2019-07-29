@@ -11,7 +11,9 @@ class Comic extends StatelessWidget {
   final length;
 
   String get chapterName {
-    if (this.item["chapters"] != null) return this.item["chapters"][0]["name"];
+    if (this.item["chapters"] != null && this.item["chapters"][0] != null) {
+      return this.item["chapters"][0]["name"];
+    }
     return '';
   }
 
@@ -35,7 +37,7 @@ class Comic extends StatelessWidget {
           right: this.margin.right,
           bottom: 3,
         ),
-        elevation: 2,
+        elevation: 1.5,
         child: Container(
           width: 120,
           decoration: BoxDecoration(

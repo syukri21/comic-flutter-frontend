@@ -1,5 +1,5 @@
 import 'package:comic/graphql/query/genres.dart';
-import 'package:comic/page/home/style/navigation.dart';
+import 'package:comic/page/home/style/navigation.dart' as style;
 import 'package:comic/util/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -64,16 +64,16 @@ class NavigationItem extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         color: Colors.white,
-        image: decorationImage,
+        image: style.decorationImage,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: <BoxShadow>[boxShadow],
+        boxShadow: <BoxShadow>[style.boxShadow],
       ),
       child: Container(
         child: Text(menu, style: TextStyle(color: Colors.white)),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          gradient: linearGradienRed,
+          gradient: style.linearGradienRed,
         ),
       ),
       margin: EdgeInsets.only(
