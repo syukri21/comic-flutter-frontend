@@ -41,10 +41,6 @@ class ComicApp extends StatelessWidget {
         onSurface: Color(0xff2C2F33),
         surface: Color(0xffffffff),
       ),
-      buttonColor: Color(0xff7289da),
-      buttonTheme: ButtonThemeData(
-        buttonColor: Color(0xff7289da),
-      ),
       appBarTheme: AppBarTheme(
         elevation: 0,
         color: Colors.transparent,

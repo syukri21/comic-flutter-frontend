@@ -8,26 +8,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    return _HomePageState(title: title);
+  }
 }
 
-class _HomePageState extends State<HomePage> {
-  int navBarPosition = 1;
-  TextDirection lastDirection;
+class _HomePageState extends StatelessWidget {
+  final int navBarPosition = 1;
+  final String title;
+  final TextDirection lastDirection = TextDirection.ltr;
 
-  @override
-  void initState() {
-    super.initState();
-    lastDirection = TextDirection.ltr;
-  }
+  const _HomePageState({Key key, @required this.title}) : super(key: key);
 
-  showIcon() {
+  IconData get showIcon {
     IconData currentIcon;
 
     switch (navBarPosition) {
@@ -44,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     return currentIcon;
   }
 
-  textDirection() {
+  TextDirection get textDirection {
     TextDirection direction;
     if (navBarPosition == 0) {
       direction = TextDirection.rtl;
@@ -53,42 +52,37 @@ class _HomePageState extends State<HomePage> {
     } else {
       direction = TextDirection.ltr;
     }
-    lastDirection = direction;
+    // lastDirection = direction;
     return direction;
   }
 
-  positionDocked() {
+  FloatingActionButtonLocation get positionDocked {
     if (navBarPosition == 1) return FloatingActionButtonLocation.centerDocked;
     return FloatingActionButtonLocation.endDocked;
   }
 
-  _handleChangePosition(int i) {
-    return () => setState(() => {navBarPosition = i});
-  }
-
   get isRtl {
-    return textDirection() == TextDirection.rtl;
+    return textDirection == TextDirection.rtl;
   }
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       child: Scaffold(
-        appBar: AppBarComic.getAppBar(widget.title, context, isRtl),
+        appBar: AppBarComic.getAppBar(title, context, isRtl),
         body: _home(),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: null,
-          child: Icon(showIcon()),
+          child: Icon(showIcon),
           mini: true,
         ),
         bottomNavigationBar: _bottomNavigationBar(
           navBarPosition: navBarPosition,
-          handleChangePosition: _handleChangePosition,
         ),
-        floatingActionButtonLocation: positionDocked(),
+        floatingActionButtonLocation: positionDocked,
       ),
-      textDirection: textDirection(),
+      textDirection: textDirection,
     );
   }
 }
@@ -119,11 +113,9 @@ class _bottomNavigationBar extends StatelessWidget {
   const _bottomNavigationBar({
     Key key,
     @required this.navBarPosition,
-    this.handleChangePosition,
   }) : super(key: key);
 
   final int navBarPosition;
-  final handleChangePosition;
 
   @override
   Widget build(BuildContext context) {
@@ -147,19 +139,25 @@ class _bottomNavigationBar extends StatelessWidget {
   List<Widget> _listIcon(BuildContext context) {
     return <Widget>[
       IconButton(
-        color: Theme.of(context).primaryTextTheme.button.color,
-        icon: Icon(navBarPosition != 0 ? Icons.pages : null),
-        onPressed: handleChangePosition(0),
+        icon: Icon(
+          navBarPosition != 0 ? Icons.pages : null,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        onPressed: null,
       ),
       IconButton(
-        color: Theme.of(context).primaryTextTheme.button.color,
-        icon: Icon(navBarPosition != 1 ? Icons.add : null),
-        onPressed: handleChangePosition(1),
+        icon: Icon(
+          navBarPosition != 1 ? Icons.add : null,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        onPressed: null,
       ),
       IconButton(
-        color: Theme.of(context).primaryTextTheme.button.color,
-        icon: Icon(navBarPosition != 2 ? Icons.people : null),
-        onPressed: handleChangePosition(2),
+        icon: Icon(
+          navBarPosition != 2 ? Icons.people : null,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        onPressed: null,
       ),
     ];
   }
