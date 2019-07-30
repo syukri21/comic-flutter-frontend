@@ -21,19 +21,22 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<BottomnavbarBloc>(
       builder: (context) => BottomnavbarBloc(),
-      child: BlocBuilder<BottomnavbarBloc, BottomnavbarState>(
-        builder: (context, state) {
-          int position = 1;
+      child: BlocListener<BottomnavbarBloc, BottomnavbarState>(
+        listener: (BuildContext context, state) {},
+        child: BlocBuilder<BottomnavbarBloc, BottomnavbarState>(
+          builder: (context, state) {
+            int position = 1;
 
-          if (state is BottomnavbarChanged) {
-            position = state.position;
-          }
+            if (state is BottomnavbarChanged) {
+              position = state.position;
+            }
 
-          return HomePageBloc(
-            title: title,
-            navBarPosition: position,
-          );
-        },
+            return HomePageBloc(
+              title: title,
+              navBarPosition: position,
+            );
+          },
+        ),
       ),
     );
   }
