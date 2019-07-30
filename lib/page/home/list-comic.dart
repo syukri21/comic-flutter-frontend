@@ -71,7 +71,7 @@ class ChapterName extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
-        color: Color(0xff24A99E),
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(5),
           bottomRight: Radius.circular(5),
@@ -97,7 +97,7 @@ class ComicTitle extends StatelessWidget {
       padding: EdgeInsets.all(2),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(169, 36, 47, 0.6),
+        color: Theme.of(context).primaryColor.withOpacity(0.5),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(5),
           bottomRight: Radius.circular(5),

@@ -1,5 +1,4 @@
 import 'package:comic/graphql/query/genres.dart';
-import 'package:comic/page/home/style/navigation.dart' as style;
 import 'package:comic/util/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -64,14 +63,21 @@ class NavigationItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: <BoxShadow>[style.boxShadow],
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Theme.of(context).primaryColor.withOpacity(0.85),
+            spreadRadius: -10,
+            offset: Offset(0, 9),
+            blurRadius: 10,
+          ),
+        ],
       ),
       child: Container(
         child: Text(menu, style: TextStyle(color: Colors.white)),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          gradient: style.linearGradienRed,
+          gradient: _LinearGradient(context),
         ),
       ),
       margin: EdgeInsets.only(
@@ -79,6 +85,18 @@ class NavigationItem extends StatelessWidget {
         left: this.margin.left,
         right: this.margin.right,
       ),
+    );
+  }
+
+  LinearGradient _LinearGradient(BuildContext context) {
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.topRight,
+      colors: [
+        Theme.of(context).primaryColor.withOpacity(1),
+        Theme.of(context).primaryColor.withOpacity(0.9),
+        Theme.of(context).primaryColor.withOpacity(0.85),
+      ],
     );
   }
 }

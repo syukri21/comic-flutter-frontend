@@ -17,13 +17,37 @@ class ComicApp extends StatelessWidget {
           title: "Comic",
           initialRoute: "/",
           routes: {"/": (context) => HomePage(title: "Manga Ree")},
-          theme: ThemeData(
-            appBarTheme: AppBarTheme(
-              elevation: 0,
-              color: Color.fromRGBO(245, 245, 245, 1),
-            ),
-          ),
+          theme: _theme(),
         ),
+      ),
+    );
+  }
+
+  ThemeData _theme() {
+    return ThemeData(
+      primaryColor: Color(0xff7289da),
+      colorScheme: ColorScheme(
+        primary: Color(0xff7289da),
+        secondary: Color(0xff99AAB5),
+        secondaryVariant: Color(0xff2c2f33),
+        background: Color(0xffffffff),
+        brightness: Brightness.light,
+        primaryVariant: Color(0xff7F94DE),
+        error: Color(0xffCB2431),
+        onBackground: Color(0xff2C2F33),
+        onError: Color(0xffffffff),
+        onPrimary: Color(0xffffffff),
+        onSecondary: Color(0xffffffff),
+        onSurface: Color(0xff2C2F33),
+        surface: Color(0xffffffff),
+      ),
+      buttonColor: Color(0xff7289da),
+      buttonTheme: ButtonThemeData(
+        buttonColor: Color(0xff7289da),
+      ),
+      appBarTheme: AppBarTheme(
+        elevation: 0,
+        color: Colors.transparent,
       ),
     );
   }

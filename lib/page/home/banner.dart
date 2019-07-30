@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:comic/graphql/query/comics.dart';
-import 'package:comic/page/home/style/banner.dart' as style;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -89,12 +88,12 @@ class BannerCarauselItem extends StatelessWidget {
     this.isCenter,
   }) : super(key: key);
 
-  get gradientColor {
+  gradientColor(context) {
     if (!isCenter) {
       return LinearGradient(
         colors: <Color>[
-          Color.fromRGBO(154, 160, 164, 0.5),
-          Color.fromRGBO(154, 160, 164, 0.5)
+          Theme.of(context).colorScheme.secondaryVariant.withOpacity(.5),
+          Theme.of(context).colorScheme.secondaryVariant.withOpacity(.5),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
@@ -102,7 +101,10 @@ class BannerCarauselItem extends StatelessWidget {
     }
 
     return LinearGradient(
-      colors: <Color>[Colors.black87, Colors.transparent],
+      colors: <Color>[
+        Theme.of(context).primaryColor.withOpacity(.6),
+        Colors.transparent
+      ],
       begin: Alignment.bottomCenter,
       end: Alignment.topCenter,
     );
@@ -127,7 +129,14 @@ class BannerCarauselItem extends StatelessWidget {
           margin: EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 20),
           decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: <BoxShadow>[style.boxShadow],
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Theme.of(context).primaryColor.withOpacity(.2),
+                spreadRadius: -10,
+                offset: Offset(0, 20),
+                blurRadius: 10,
+              ),
+            ],
             borderRadius: BorderRadius.circular(8),
             image: DecorationImage(
               image: NetworkImage(item["image"]),
@@ -140,7 +149,7 @@ class BannerCarauselItem extends StatelessWidget {
             curve: Curves.fastOutSlowIn,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              gradient: gradientColor,
+              gradient: gradientColor(context),
             ),
             padding: EdgeInsets.all(10),
             child: Align(

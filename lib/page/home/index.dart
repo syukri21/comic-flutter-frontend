@@ -3,6 +3,7 @@ import 'package:comic/page/home/banner.dart';
 import 'package:comic/page/home/navigation.dart';
 import 'package:comic/page/home/new-comics.dart';
 import 'package:comic/page/home/popular-comics.dart';
+import 'package:comic/util/normalization-directionality.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -65,13 +66,18 @@ class _HomePageState extends State<HomePage> {
     return () => setState(() => {navBarPosition = i});
   }
 
+  get isRtl {
+    return textDirection() == TextDirection.rtl;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       child: Scaffold(
-        appBar: AppBarComic.getAppBar(widget.title),
+        appBar: AppBarComic.getAppBar(widget.title, context, isRtl),
         body: _home(),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
           onPressed: null,
           child: Icon(showIcon()),
           mini: true,
@@ -126,10 +132,13 @@ class _bottomNavigationBar extends StatelessWidget {
       notchMargin: 4.0,
       color: Theme.of(context).primaryColor,
       child: NormalizationDirectionality(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: _listIcon(context),
+        child: Padding(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: _listIcon(context),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 10),
         ),
       ),
     );
@@ -153,19 +162,5 @@ class _bottomNavigationBar extends StatelessWidget {
         onPressed: handleChangePosition(2),
       ),
     ];
-  }
-}
-
-class NormalizationDirectionality extends StatelessWidget {
-  final child;
-
-  const NormalizationDirectionality({Key key, this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      child: this.child,
-      textDirection: TextDirection.ltr,
-    );
   }
 }
