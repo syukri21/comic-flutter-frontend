@@ -7,9 +7,10 @@ abstract class BottomnavbarState extends Equatable {
   BottomnavbarState([List props = const []]) : super(props);
 }
 
-class BottomnavbarInitial extends BottomnavbarState {}
-
-class BottomnavbarLoading extends BottomnavbarState {}
+class BottomnavbarChanged extends BottomnavbarState {
+  final int position;
+  BottomnavbarChanged(this.position) : super([position]);
+}
 
 class BottomnavbarLoaded extends BottomnavbarState {
   final Bottomnavbar bottomNavbar;

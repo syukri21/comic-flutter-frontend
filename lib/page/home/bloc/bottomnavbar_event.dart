@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -11,5 +12,5 @@ abstract class BottomnavbarEvent extends Equatable {
 class GetBottomNavbar extends BottomnavbarEvent {
   final int position;
 
-  GetBottomNavbar(this.position) : super([position]);
+  GetBottomNavbar({@required this.position}) : super([position]);
 }

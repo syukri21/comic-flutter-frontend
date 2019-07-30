@@ -1,5 +1,7 @@
 import 'package:comic/global/appbar/index.dart';
+import 'package:comic/global/bottom-navigation/index.dart';
 import 'package:comic/page/home/banner.dart';
+import 'package:comic/page/home/bloc/bloc.dart';
 import 'package:comic/page/home/navigation.dart';
 import 'package:comic/page/home/new-comics.dart';
 import 'package:comic/page/home/popular-comics.dart';
@@ -7,29 +9,54 @@ import 'package:comic/util/normalization-directionality.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
+  final bottomNavbarBloc = BottomnavbarBloc();
   HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    return _HomePageState(title: title);
+    return BlocProvider<BottomnavbarBloc>(
+      builder: (context) => BottomnavbarBloc(),
+      child: BlocBuilder<BottomnavbarBloc, BottomnavbarState>(
+        builder: (context, state) {
+          int position = 1;
+
+          if (state is BottomnavbarChanged) {
+            position = state.position;
+          }
+
+          return HomePageBloc(
+            title: title,
+            navBarPosition: position,
+          );
+        },
+      ),
+    );
   }
 }
 
-class _HomePageState extends StatelessWidget {
-  final int navBarPosition = 1;
+class HomePageBloc extends StatefulWidget {
+  final int navBarPosition;
   final String title;
-  final TextDirection lastDirection = TextDirection.ltr;
 
-  const _HomePageState({Key key, @required this.title}) : super(key: key);
+  HomePageBloc({Key key, @required this.title, this.navBarPosition: 1})
+      : super(key: key);
+
+  @override
+  _HomePageBlocState createState() => _HomePageBlocState();
+}
+
+class _HomePageBlocState extends State<HomePageBloc> {
+  TextDirection lastDirection = TextDirection.ltr;
 
   IconData get showIcon {
     IconData currentIcon;
 
-    switch (navBarPosition) {
+    switch (widget.navBarPosition) {
       case 0:
         currentIcon = Icons.pages;
         break;
@@ -45,19 +72,20 @@ class _HomePageState extends StatelessWidget {
 
   TextDirection get textDirection {
     TextDirection direction;
-    if (navBarPosition == 0) {
+    if (widget.navBarPosition == 0) {
       direction = TextDirection.rtl;
-    } else if (navBarPosition == 1) {
+    } else if (widget.navBarPosition == 1) {
       direction = lastDirection;
     } else {
       direction = TextDirection.ltr;
     }
-    // lastDirection = direction;
+    lastDirection = direction;
     return direction;
   }
 
   FloatingActionButtonLocation get positionDocked {
-    if (navBarPosition == 1) return FloatingActionButtonLocation.centerDocked;
+    if (widget.navBarPosition == 1)
+      return FloatingActionButtonLocation.centerDocked;
     return FloatingActionButtonLocation.endDocked;
   }
 
@@ -67,9 +95,10 @@ class _HomePageState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(lastDirection);
     return Directionality(
       child: Scaffold(
-        appBar: AppBarComic.getAppBar(title, context, isRtl),
+        appBar: AppBarComic.getAppBar(widget.title, context, isRtl),
         body: _home(),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
@@ -77,8 +106,8 @@ class _HomePageState extends StatelessWidget {
           child: Icon(showIcon),
           mini: true,
         ),
-        bottomNavigationBar: _bottomNavigationBar(
-          navBarPosition: navBarPosition,
+        bottomNavigationBar: BottomNavigation(
+          navBarPosition: widget.navBarPosition,
         ),
         floatingActionButtonLocation: positionDocked,
       ),
@@ -106,59 +135,5 @@ class _home extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _bottomNavigationBar extends StatelessWidget {
-  const _bottomNavigationBar({
-    Key key,
-    @required this.navBarPosition,
-  }) : super(key: key);
-
-  final int navBarPosition;
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      notchMargin: 4.0,
-      color: Theme.of(context).primaryColor,
-      child: NormalizationDirectionality(
-        child: Padding(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: _listIcon(context),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 10),
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _listIcon(BuildContext context) {
-    return <Widget>[
-      IconButton(
-        icon: Icon(
-          navBarPosition != 0 ? Icons.pages : null,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        onPressed: null,
-      ),
-      IconButton(
-        icon: Icon(
-          navBarPosition != 1 ? Icons.add : null,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        onPressed: null,
-      ),
-      IconButton(
-        icon: Icon(
-          navBarPosition != 2 ? Icons.people : null,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        onPressed: null,
-      ),
-    ];
   }
 }
