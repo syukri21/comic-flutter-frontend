@@ -2,6 +2,7 @@ import 'package:comic/global/appbar/index.dart';
 import 'package:comic/global/bottom-navigation/index.dart';
 
 import 'package:comic/page/home/bloc/bloc.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -51,78 +52,48 @@ class HomePageBloc extends StatefulWidget {
   _HomePageBlocState createState() => _HomePageBlocState();
 }
 
-class _HomePageBlocState extends State<HomePageBloc> {
-  TextDirection lastDirection = TextDirection.ltr;
+class _HomePageBlocState extends State<HomePageBloc>
+    with SingleTickerProviderStateMixin {
+  TabController _controller;
 
-  IconData get showIcon {
-    IconData currentIcon;
+  Animation<double> animation;
 
-    switch (widget.navBarPosition) {
-      case 0:
-        currentIcon = Icons.pages;
-        break;
-      case 1:
-        currentIcon = Icons.add;
-        break;
-      default:
-        currentIcon = Icons.people;
-    }
-
-    return currentIcon;
-  }
-
-  TextDirection get textDirection {
-    TextDirection direction;
-    if (widget.navBarPosition == 0) {
-      direction = TextDirection.rtl;
-    } else if (widget.navBarPosition == 1) {
-      direction = lastDirection;
-    } else {
-      direction = TextDirection.ltr;
-    }
-    lastDirection = direction;
-    return direction;
-  }
-
-  FloatingActionButtonLocation get positionDocked {
-    if (widget.navBarPosition == 1)
-      return FloatingActionButtonLocation.centerDocked;
-    return FloatingActionButtonLocation.endDocked;
-  }
-
-  get isRtl {
-    return textDirection == TextDirection.rtl;
-  }
-
-  get callComponent {
-    switch (widget.navBarPosition) {
-      case 0:
-        return Left();
-      case 1:
-        return Middle();
-      case 2:
-        return Right();
-    }
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(
+      vsync: this,
+      length: 3,
+      initialIndex: 0,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      child: Scaffold(
-        appBar: AppBarComic.getAppBar(widget.title, context, isRtl),
-        body: callComponent,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: null,
-          child: Icon(showIcon),
-          mini: true,
-        ),
-        bottomNavigationBar: BottomNavigation(
-          navBarPosition: widget.navBarPosition,
-        ),
-        floatingActionButtonLocation: positionDocked,
+    return Scaffold(
+      appBar: AppBarComic.getAppBar(widget.title, context),
+      body: TabBarView(
+        dragStartBehavior: DragStartBehavior.down,
+        controller: _controller,
+        children: <Widget>[Middle(), Left(), Right()],
       ),
-      textDirection: textDirection,
+      bottomNavigationBar: Material(
+        child: TabBar(
+          controller: _controller,
+          labelColor: Theme.of(context).primaryColor,
+          tabs: <Widget>[
+            Tab(icon: Icon(Icons.access_time)),
+            Tab(icon: Icon(Icons.accessibility)),
+            Tab(icon: Icon(Icons.account_box)),
+          ],
+        ),
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 }

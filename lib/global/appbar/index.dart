@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppBarComic {
-  static getAppBar(String title, context, isRtl) {
+  static getAppBar(String title, context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(
@@ -14,34 +14,22 @@ class AppBarComic {
       ),
       centerTitle: true,
       titleSpacing: 1,
-      leading: handleIsRtl(isRtl, 0),
+      leading: IconButton(
+        padding: EdgeInsets.only(left: 16),
+        alignment: Alignment.centerLeft,
+        icon: Icon(Icons.menu),
+        color: Colors.black,
+        onPressed: () {},
+      ),
       actions: <Widget>[
-        handleIsRtl(isRtl, 1),
+        IconButton(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(right: 16),
+          icon: Icon(Icons.search),
+          color: Colors.black,
+          onPressed: () {},
+        ),
       ],
     );
-  }
-
-  static handleIsRtl(isRtl, type) {
-    IconButton menuIcon = IconButton(
-      padding: EdgeInsets.only(left: 16),
-      alignment: Alignment.centerLeft,
-      icon: Icon(Icons.menu),
-      color: Colors.black,
-      onPressed: () {},
-    );
-    IconButton searchIcon = IconButton(
-      alignment: Alignment.centerRight,
-      padding: EdgeInsets.only(right: 16),
-      icon: Icon(Icons.search),
-      color: Colors.black,
-      onPressed: () {},
-    );
-
-    if (type == 0) {
-      if (isRtl) return searchIcon;
-      return menuIcon;
-    }
-    if (!isRtl) return searchIcon;
-    return menuIcon;
   }
 }
