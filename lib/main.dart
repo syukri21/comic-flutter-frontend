@@ -1,6 +1,8 @@
 import 'package:comic/graphql/graphql.dart';
+import 'package:comic/page/home/bloc/bottomnavbar_bloc.dart';
 import 'package:comic/page/home/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() {
@@ -13,11 +15,14 @@ class ComicApp extends StatelessWidget {
     return GraphQLProvider(
       client: GraphQL.client,
       child: CacheProvider(
-        child: MaterialApp(
-          title: "Comic",
-          initialRoute: "/",
-          routes: {"/": (context) => HomePage(title: "Manga Ree")},
-          theme: _theme(),
+        child: BlocProvider<BottomnavbarBloc>(
+          builder: (context) => BottomnavbarBloc(),
+          child: MaterialApp(
+            title: "Comic",
+            initialRoute: "/",
+            routes: {"/": (context) => HomePage(title: "Manga Ree")},
+            theme: _theme(),
+          ),
         ),
       ),
     );

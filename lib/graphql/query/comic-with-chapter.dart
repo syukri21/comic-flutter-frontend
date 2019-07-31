@@ -1,5 +1,5 @@
 String readComicWithChapters = """
-  query Comics(\$first: Int, \$orderBy: ComicOrderByInput, \$last: Int, \$firstChapter: Int) {
+  query readComicWithChapters(\$first: Int, \$orderBy: ComicOrderByInput, \$last: Int, \$firstChapter: Int) {
     comics(first: \$first, orderBy: \$orderBy, last: \$last) {
       id
       title

@@ -1,15 +1,16 @@
 import 'package:comic/global/appbar/index.dart';
 import 'package:comic/global/bottom-navigation/index.dart';
-import 'package:comic/page/home/banner.dart';
+
 import 'package:comic/page/home/bloc/bloc.dart';
-import 'package:comic/page/home/navigation.dart';
-import 'package:comic/page/home/new-comics.dart';
-import 'package:comic/page/home/popular-comics.dart';
-import 'package:comic/util/normalization-directionality.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'components/left/index.dart';
+import 'components/middle/index.dart';
+import 'components/right/index.dart';
 
 class HomePage extends StatelessWidget {
   final bottomNavbarBloc = BottomnavbarBloc();
@@ -19,24 +20,21 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BottomnavbarBloc>(
-      builder: (context) => BottomnavbarBloc(),
-      child: BlocListener<BottomnavbarBloc, BottomnavbarState>(
-        listener: (BuildContext context, state) {},
-        child: BlocBuilder<BottomnavbarBloc, BottomnavbarState>(
-          builder: (context, state) {
-            int position = 1;
+    return BlocListener<BottomnavbarBloc, BottomnavbarState>(
+      listener: (BuildContext context, state) {},
+      child: BlocBuilder<BottomnavbarBloc, BottomnavbarState>(
+        builder: (context, state) {
+          int position = 1;
 
-            if (state is BottomnavbarChanged) {
-              position = state.position;
-            }
+          if (state is BottomnavbarChanged) {
+            position = state.position;
+          }
 
-            return HomePageBloc(
-              title: title,
-              navBarPosition: position,
-            );
-          },
-        ),
+          return HomePageBloc(
+            title: title,
+            navBarPosition: position,
+          );
+        },
       ),
     );
   }
@@ -96,13 +94,23 @@ class _HomePageBlocState extends State<HomePageBloc> {
     return textDirection == TextDirection.rtl;
   }
 
+  get callComponent {
+    switch (widget.navBarPosition) {
+      case 0:
+        return Left();
+      case 1:
+        return Middle();
+      case 2:
+        return Right();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(lastDirection);
     return Directionality(
       child: Scaffold(
         appBar: AppBarComic.getAppBar(widget.title, context, isRtl),
-        body: _home(),
+        body: callComponent,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: null,
@@ -115,28 +123,6 @@ class _HomePageBlocState extends State<HomePageBloc> {
         floatingActionButtonLocation: positionDocked,
       ),
       textDirection: textDirection,
-    );
-  }
-}
-
-class _home extends StatelessWidget {
-  const _home({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NormalizationDirectionality(
-      child: Container(
-        child: ListView(
-          children: <Widget>[
-            BannerCarouselQuery(),
-            Navigation(),
-            NewComics(),
-            PopularComics(),
-          ],
-        ),
-      ),
     );
   }
 }

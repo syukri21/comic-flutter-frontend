@@ -1,10 +1,12 @@
 import 'package:comic/graphql/query/comic-with-chapter.dart';
-import 'package:comic/page/home/list-comic.dart';
-import 'package:comic/page/home/list-title.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
+
+import 'list-comic.dart';
+import 'list-title.dart';
 
 class NewComics extends StatelessWidget {
   @override
@@ -25,6 +27,7 @@ class ListComicsQuery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Query(
+      key: Key("readComicWithChapters"),
       options: QueryOptions(
         document: readComicWithChapters,
         variables: {'first': 10, 'orderBy': 'updateOn_DESC', 'firstChapter': 1},

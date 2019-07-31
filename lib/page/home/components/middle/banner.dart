@@ -19,18 +19,28 @@ class BannerCarouselQuery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return buildQuery();
+  }
+
+  Query buildQuery() {
     return Query(
-      options: QueryOptions(document: readComics, variables: {
-        'first': 4,
-        'orderBy': 'hits_DESC',
-      }),
+      options: queryOptions(),
       builder: (QueryResult result, {VoidCallback refetch}) {
         if (result.errors != null) return Text(result.errors.toString());
         if (result.loading) return Text("Loading");
 
         List comics = result.data["comics"];
-
         return BannerCarousel(comics: comics);
+      },
+    );
+  }
+
+  QueryOptions queryOptions() {
+    return QueryOptions(
+      document: readComics,
+      variables: {
+        'first': 4,
+        'orderBy': 'hits_DESC',
       },
     );
   }

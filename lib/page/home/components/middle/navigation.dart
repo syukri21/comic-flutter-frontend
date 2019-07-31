@@ -1,10 +1,9 @@
 import 'package:comic/graphql/query/genres.dart';
+import 'package:comic/page/home/loading/navigation.dart';
 import 'package:comic/util/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-
-import 'loading/navigation.dart';
 
 class Navigation extends StatelessWidget {
   @override

@@ -6,3 +6,12 @@ String readGenres = """
     }
   }
 """;
+
+String keyReadGenres = """
+  query Genres {
+    genres {
+      id
+      genre
+    }
+  }
+|{}|Genres""";

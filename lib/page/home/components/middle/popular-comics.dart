@@ -1,10 +1,10 @@
 import 'package:comic/graphql/query/comics.dart';
-import 'package:comic/page/home/list-comic.dart';
-import 'package:comic/page/home/list-title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:graphql_flutter/graphql_flutter.dart';
+
+import 'list-comic.dart';
+import 'list-title.dart';
 
 class PopularComics extends StatelessWidget {
   @override
