@@ -61,7 +61,7 @@ class _HomePageBlocState extends State<HomePageBloc>
     super.initState();
     _controller = TabController(
       vsync: this,
-      length: 3,
+      length: 5,
       initialIndex: 0,
     );
   }
@@ -70,19 +70,17 @@ class _HomePageBlocState extends State<HomePageBloc>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarComic.getAppBar(widget.title, context),
-      body: TabBarView(
-        dragStartBehavior: DragStartBehavior.down,
-        controller: _controller,
-        children: <Widget>[ForYou(), Left(), Right()],
-      ),
+      body: ForYou(),
       bottomNavigationBar: Material(
         child: TabBar(
           controller: _controller,
           labelColor: Theme.of(context).primaryColor,
           tabs: <Widget>[
+            Tab(icon: Icon(Icons.home)),
+            Tab(icon: Icon(Icons.favorite)),
             Tab(icon: Icon(Icons.access_time)),
-            Tab(icon: Icon(Icons.accessibility)),
-            Tab(icon: Icon(Icons.account_box)),
+            Tab(icon: Icon(Icons.file_download)),
+            Tab(icon: Icon(Icons.more_horiz)),
           ],
         ),
       ),

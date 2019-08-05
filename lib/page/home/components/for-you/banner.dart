@@ -103,23 +103,17 @@ class BannerCarauselItem extends StatelessWidget {
 
   gradientColor(context) {
     if (!isCenter) {
-      return LinearGradient(
-        colors: <Color>[
-          Theme.of(context).colorScheme.secondaryVariant.withOpacity(.5),
-          Theme.of(context).colorScheme.secondaryVariant.withOpacity(.5),
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      );
+      return null;
     }
 
     return LinearGradient(
+      stops: <double>[0.17, 0.83],
       colors: <Color>[
-        Theme.of(context).primaryColor.withOpacity(.6),
-        Colors.transparent
+        Colors.transparent,
+        Theme.of(context).primaryColor.withOpacity(1),
       ],
-      begin: Alignment.bottomCenter,
-      end: Alignment.topCenter,
+      begin: Alignment.centerRight,
+      end: Alignment.center,
     );
   }
 
@@ -152,9 +146,7 @@ class BannerCarauselItem extends StatelessWidget {
             alignment: Alignment.centerRight,
           ),
         ),
-        child: AnimatedContainer(
-          duration: const Duration(seconds: 1),
-          curve: Curves.fastOutSlowIn,
+        child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             gradient: gradientColor(context),
