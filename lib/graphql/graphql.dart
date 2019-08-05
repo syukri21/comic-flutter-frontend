@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class GraphQL {
   static final HttpLink httpLink = HttpLink(
-    uri: 'http://192.168.8.22:4000/query',
+    uri: 'http://202.83.122.72:4000/query',
   );
 
   static NormalizedInMemoryCache cache = NormalizedInMemoryCache(

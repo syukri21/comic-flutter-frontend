@@ -2,12 +2,11 @@ import 'package:comic/util/normalization-directionality.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'banner.dart';
-import 'navigation.dart';
 import 'new-comics.dart';
 import 'popular-comics.dart';
 
-class Middle extends StatelessWidget {
-  const Middle({
+class ForYou extends StatelessWidget {
+  const ForYou({
     Key key,
   }) : super(key: key);
 
@@ -18,7 +17,6 @@ class Middle extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             BannerCarouselQuery(),
-            Navigation(),
             NewComics(),
             PopularComics(),
           ],

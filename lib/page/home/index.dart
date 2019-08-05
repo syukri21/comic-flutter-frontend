@@ -1,16 +1,14 @@
 import 'package:comic/global/appbar/index.dart';
-import 'package:comic/global/bottom-navigation/index.dart';
 
 import 'package:comic/page/home/bloc/bloc.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'components/for-you/index.dart';
 import 'components/left/index.dart';
-import 'components/middle/index.dart';
 import 'components/right/index.dart';
 
 class HomePage extends StatelessWidget {
@@ -75,7 +73,7 @@ class _HomePageBlocState extends State<HomePageBloc>
       body: TabBarView(
         dragStartBehavior: DragStartBehavior.down,
         controller: _controller,
-        children: <Widget>[Middle(), Left(), Right()],
+        children: <Widget>[ForYou(), Left(), Right()],
       ),
       bottomNavigationBar: Material(
         child: TabBar(

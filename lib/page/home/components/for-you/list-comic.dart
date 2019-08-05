@@ -69,7 +69,7 @@ class ChapterName extends StatelessWidget {
   Widget build(BuildContext context) {
     if (this.name == '') return SizedBox.shrink();
     return Container(
-      padding: EdgeInsets.all(2),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.only(
@@ -94,7 +94,7 @@ class ComicTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      padding: EdgeInsets.all(2),
+      padding: const EdgeInsets.all(2),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor.withOpacity(0.5),

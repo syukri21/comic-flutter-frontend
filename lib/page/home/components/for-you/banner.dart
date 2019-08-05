@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:comic/graphql/query/comics.dart';
+import 'package:comic/graphql/query/comics-on-banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+
+import 'banner-item.dart';
 
 class Banner extends StatelessWidget {
   @override
@@ -37,7 +40,7 @@ class BannerCarouselQuery extends StatelessWidget {
 
   QueryOptions queryOptions() {
     return QueryOptions(
-      document: readComics,
+      document: comicsOnBanner,
       variables: {
         'first': 4,
         'orderBy': 'hits_DESC',
@@ -68,8 +71,8 @@ class _BannerCarouselState extends State<BannerCarousel> {
   Widget build(BuildContext context) {
     int index = -1;
     return CarouselSlider(
-      aspectRatio: 6 / 4,
-      viewportFraction: 0.6,
+      aspectRatio: 1.66,
+      viewportFraction: 0.95,
       initialPage: 0,
       onPageChanged: _handlePageChanged,
       enlargeCenterPage: true,
@@ -122,53 +125,48 @@ class BannerCarauselItem extends StatelessWidget {
 
   get title {
     if (!isCenter) return null;
-
-    return Text(
-      item["title"].replaceAll("Bahasa Indonesia", ""),
-      style: TextStyle(color: Colors.white, fontFamily: "Farro"),
-      textAlign: TextAlign.center,
-    );
+    return new BannerItem(item: item);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (BuildContext context) {
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 20),
+    return CachedNetworkImage(
+      useOldImageOnUrlChange: true,
+      imageBuilder: (BuildContext context, ImageProvider provider) => Container(
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 20),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Theme.of(context).primaryColor.withOpacity(.5),
+              spreadRadius: -10,
+              offset: const Offset(0, 20),
+              blurRadius: 10,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(5),
+          image: DecorationImage(
+            image: provider,
+            fit: BoxFit.fitHeight,
+            alignment: Alignment.centerRight,
+          ),
+        ),
+        child: AnimatedContainer(
+          duration: const Duration(seconds: 1),
+          curve: Curves.fastOutSlowIn,
           decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Theme.of(context).primaryColor.withOpacity(.2),
-                spreadRadius: -10,
-                offset: Offset(0, 20),
-                blurRadius: 10,
-              ),
-            ],
-            borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              image: NetworkImage(item["image"]),
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-            ),
+            borderRadius: BorderRadius.circular(5),
+            gradient: gradientColor(context),
           ),
-          child: AnimatedContainer(
-            duration: Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              gradient: gradientColor(context),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Align(
-              child: title,
-              alignment: Alignment.bottomCenter,
-            ),
+          padding: const EdgeInsets.all(10),
+          child: Align(
+            child: title,
+            alignment: Alignment.bottomLeft,
           ),
-        );
-      },
+        ),
+      ),
+      imageUrl: item["image"],
     );
   }
 }

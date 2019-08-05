@@ -31,6 +31,7 @@ class ComicApp extends StatelessWidget {
   ThemeData _theme() {
     return ThemeData(
       primaryColor: Color(0xff7289da),
+      buttonColor: Color(0xff7BBB5E),
       colorScheme: ColorScheme(
         primary: Color(0xff7289da),
         secondary: Color(0xff99AAB5),
