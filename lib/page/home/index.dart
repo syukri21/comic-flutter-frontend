@@ -1,62 +1,26 @@
-import 'package:comic/page/home/bloc/bloc.dart';
 import 'package:comic/page/home/components/for-you/index.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sliver_fill_remaining_box_adapter/sliver_fill_remaining_box_adapter.dart';
 
-import 'components/for-you/banner.dart';
-import 'components/for-you/new-comics.dart';
-import 'components/for-you/popular-comics.dart';
 import 'components/left/index.dart';
 import 'components/right/index.dart';
 
 import 'package:comic/global/appbar/index.dart';
 
-class HomePage extends StatelessWidget {
-  final bottomNavbarBloc = BottomnavbarBloc();
-  HomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<BottomnavbarBloc, BottomnavbarState>(
-      listener: (BuildContext context, state) {},
-      child: BlocBuilder<BottomnavbarBloc, BottomnavbarState>(
-        builder: (context, state) {
-          int position = 1;
-
-          if (state is BottomnavbarChanged) {
-            position = state.position;
-          }
-
-          return HomePageBloc(
-            title: title,
-            navBarPosition: position,
-          );
-        },
-      ),
-    );
-  }
-}
-
-class HomePageBloc extends StatefulWidget {
+class HomePage extends StatefulWidget {
   final int navBarPosition;
   final String title;
 
-  HomePageBloc({Key key, @required this.title, this.navBarPosition: 1})
+  HomePage({Key key, @required this.title, this.navBarPosition: 1})
       : super(key: key);
 
   @override
-  _HomePageBlocState createState() => _HomePageBlocState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageBlocState extends State<HomePageBloc>
-    with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _controller;
   TabController _bottomTabController;
   ScrollController _scrollController;
@@ -96,9 +60,12 @@ class _HomePageBlocState extends State<HomePageBloc>
         },
       ),
       bottomNavigationBar: Material(
+        color: Theme.of(context).primaryColor,
         child: TabBar(
           controller: _bottomTabController,
-          labelColor: Theme.of(context).primaryColor,
+          labelColor: Theme.of(context).colorScheme.onPrimary,
+          indicatorColor: Theme.of(context).colorScheme.onPrimary,
+          indicatorWeight: 3,
           tabs: <Widget>[
             Tab(icon: Icon(Icons.home)),
             Tab(icon: Icon(Icons.favorite)),

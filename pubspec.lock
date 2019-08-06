@@ -240,13 +240,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  sliver_fill_remaining_box_adapter:
-    dependency: "direct main"
-    description:
-      name: sliver_fill_remaining_box_adapter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   smooth_star_rating:
     dependency: "direct main"
     description:
