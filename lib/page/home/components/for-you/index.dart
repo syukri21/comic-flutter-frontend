@@ -1,4 +1,3 @@
-import 'package:comic/util/normalization-directionality.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'banner.dart';
@@ -12,15 +11,14 @@ class ForYou extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NormalizationDirectionality(
-      child: Container(
-        child: ListView(
-          children: <Widget>[
-            BannerCarouselQuery(),
-            NewComics(),
-            PopularComics(),
-          ],
-        ),
+    return Container(
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          BannerCarouselQuery(),
+          NewComics(),
+          PopularComics(),
+        ],
       ),
     );
   }

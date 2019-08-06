@@ -1,15 +1,20 @@
-import 'package:comic/global/appbar/index.dart';
-
 import 'package:comic/page/home/bloc/bloc.dart';
-import 'package:flutter/gestures.dart';
+import 'package:comic/page/home/components/for-you/index.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sliver_fill_remaining_box_adapter/sliver_fill_remaining_box_adapter.dart';
 
-import 'components/for-you/index.dart';
+import 'components/for-you/banner.dart';
+import 'components/for-you/new-comics.dart';
+import 'components/for-you/popular-comics.dart';
 import 'components/left/index.dart';
 import 'components/right/index.dart';
+
+import 'package:comic/global/appbar/index.dart';
 
 class HomePage extends StatelessWidget {
   final bottomNavbarBloc = BottomnavbarBloc();
@@ -51,8 +56,10 @@ class HomePageBloc extends StatefulWidget {
 }
 
 class _HomePageBlocState extends State<HomePageBloc>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   TabController _controller;
+  TabController _bottomTabController;
+  ScrollController _scrollController;
 
   Animation<double> animation;
 
@@ -61,19 +68,36 @@ class _HomePageBlocState extends State<HomePageBloc>
     super.initState();
     _controller = TabController(
       vsync: this,
+      length: 3,
+      initialIndex: 0,
+    );
+    _bottomTabController = TabController(
+      vsync: this,
       length: 5,
       initialIndex: 0,
     );
+    _scrollController = ScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarComic.getAppBar(widget.title, context),
-      body: ForYou(),
+      body: NestedScrollView(
+        controller: _scrollController,
+        body: TabBarView(
+          controller: _controller,
+          children: <Widget>[ForYou(), Left(), Right()],
+        ),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SilverAppBarComic(
+                controller: _controller, forceElevatedBool: innerBoxIsScrolled),
+          ];
+        },
+      ),
       bottomNavigationBar: Material(
         child: TabBar(
-          controller: _controller,
+          controller: _bottomTabController,
           labelColor: Theme.of(context).primaryColor,
           tabs: <Widget>[
             Tab(icon: Icon(Icons.home)),
@@ -91,5 +115,7 @@ class _HomePageBlocState extends State<HomePageBloc>
   void dispose() {
     super.dispose();
     _controller.dispose();
+    _scrollController.dispose();
+    _bottomTabController.dispose();
   }
 }

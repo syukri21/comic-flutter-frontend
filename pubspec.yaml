@@ -35,6 +35,8 @@ dependencies:
   flutter_bloc: ^0.20.0
   equatable: ^0.3.0
   smooth_star_rating: 1.0.3
+  sliver_fill_remaining_box_adapter: ^0.1.1
+
 
 
 

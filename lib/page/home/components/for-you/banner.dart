@@ -101,22 +101,6 @@ class BannerCarauselItem extends StatelessWidget {
     this.isCenter,
   }) : super(key: key);
 
-  gradientColor(context) {
-    if (!isCenter) {
-      return null;
-    }
-
-    return LinearGradient(
-      stops: <double>[0.17, 0.83],
-      colors: <Color>[
-        Colors.transparent,
-        Theme.of(context).primaryColor.withOpacity(1),
-      ],
-      begin: Alignment.centerRight,
-      end: Alignment.center,
-    );
-  }
-
   get title {
     if (!isCenter) return null;
     return new BannerItem(item: item);
@@ -149,7 +133,15 @@ class BannerCarauselItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            gradient: gradientColor(context),
+            gradient: LinearGradient(
+              stops: <double>[0.17, 0.83],
+              colors: <Color>[
+                Colors.transparent,
+                Theme.of(context).primaryColor.withOpacity(1),
+              ],
+              begin: Alignment.centerRight,
+              end: Alignment.center,
+            ),
           ),
           padding: const EdgeInsets.all(10),
           child: Align(
