@@ -1,6 +1,7 @@
-import 'package:comic/page/home/components/for-you/util.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+
+import 'util.dart';
 
 class BannerItem extends StatelessWidget {
   const BannerItem({

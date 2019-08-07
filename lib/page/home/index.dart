@@ -1,9 +1,9 @@
+import 'package:comic/page/home/home/index.dart';
+import 'package:comic/page/home/new-update/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'components/all/index.dart';
-import 'components/for-you/index.dart';
-import 'components/new-update/index.dart';
+import 'all/index.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
