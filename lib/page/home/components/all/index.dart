@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-class Right extends StatelessWidget {
+class All extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text("ini Right");
+    return Text("ini All");
   }
 }

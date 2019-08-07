@@ -6,11 +6,13 @@ class SilverAppBarComic extends StatelessWidget {
     Key key,
     @required TabController controller,
     this.forceElevatedBool,
+    this.hasBottom,
   })  : _controller = controller,
         super(key: key);
 
   final TabController _controller;
   final bool forceElevatedBool;
+  final bool hasBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +37,27 @@ class SilverAppBarComic extends StatelessWidget {
         ),
         textAlign: TextAlign.center,
       ),
-      bottom: PreferredSize(
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: TabBar(
-            isScrollable: true,
-            indicatorColor: Theme.of(context).colorScheme.onPrimary,
-            tabs: <Widget>[
-              Tab(text: 'Home'),
-              Tab(text: 'All'),
-              Tab(text: 'New Update'),
-            ],
-            controller: _controller,
-          ),
+      bottom: _bottomAppBar(context),
+    );
+  }
+
+  PreferredSize _bottomAppBar(BuildContext context) {
+    if (!hasBottom) return null;
+    return PreferredSize(
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: TabBar(
+          isScrollable: true,
+          indicatorColor: Theme.of(context).colorScheme.onPrimary,
+          tabs: <Widget>[
+            Tab(text: 'Home'),
+            Tab(text: 'All'),
+            Tab(text: 'New Update'),
+          ],
+          controller: _controller,
         ),
-        preferredSize: Size(null, 48),
       ),
+      preferredSize: Size(null, 48),
     );
   }
 }

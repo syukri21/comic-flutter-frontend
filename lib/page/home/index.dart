@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'components/all/index.dart';
 import 'components/for-you/index.dart';
-import 'components/left/index.dart';
-import 'components/right/index.dart';
+import 'components/new-update/index.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBarView(
       controller: _controller,
-      children: <Widget>[ForYou(), Left(), Right()],
+      children: <Widget>[ForYou(), All(), NewUpdate()],
     );
   }
 }
