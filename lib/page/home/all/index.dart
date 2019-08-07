@@ -1,4 +1,5 @@
-import 'package:comic/page/home/all/appbar.dart';
+import 'package:comic/page/home/all/all-appbar.dart';
+import 'package:comic/page/home/all/all-body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class All extends StatelessWidget {
         child: AllAppbar(),
         preferredSize: const Size(null, 30),
       ),
+      body: AllBody(),
     );
   }
 }
