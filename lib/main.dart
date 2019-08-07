@@ -1,5 +1,5 @@
 import 'package:comic/graphql/graphql.dart';
-import 'package:comic/page/home/index.dart';
+import 'package:comic/page/index.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -16,7 +16,7 @@ class ComicApp extends StatelessWidget {
         child: MaterialApp(
           title: "Comic",
           initialRoute: "/",
-          routes: {"/": (context) => HomePage(title: "Manga Ree")},
+          routes: {"/": (context) => Pages()},
           theme: _theme(),
         ),
       ),
@@ -41,10 +41,6 @@ class ComicApp extends StatelessWidget {
         onSecondary: Color(0xffffffff),
         onSurface: Color(0xff2C2F33),
         surface: Color(0xffffffff),
-      ),
-      appBarTheme: AppBarTheme(
-        elevation: 0,
-        color: Colors.transparent,
       ),
     );
   }
