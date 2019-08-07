@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 class All extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        child: AllAppbar(),
-        preferredSize: const Size(null, 30),
+    return Container(
+      child: ListView(
+        padding: const EdgeInsets.all(0),
+        shrinkWrap: true,
+        children: <Widget>[
+          AllAppbar(),
+          AllBody(),
+        ],
       ),
-      body: AllBody(),
     );
   }
 }
