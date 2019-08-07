@@ -34,6 +34,8 @@ class _PagesState extends State<Pages> with TickerProviderStateMixin {
         Download(),
         Settings(),
       ];
+  List<String> get nameScreens =>
+      ["Mangaree", "Bookmark", "History", "Download", "Settings"];
 
   void _handleChangeCurrentIndex(int n) {
     setState(() {
@@ -77,6 +79,7 @@ class _PagesState extends State<Pages> with TickerProviderStateMixin {
                 controller: _controller,
                 forceElevatedBool: innerBoxIsScrolled,
                 hasBottom: _currentIndex == 0,
+                title: nameScreens[_currentIndex],
               ),
             ];
           },

@@ -7,12 +7,14 @@ class SilverAppBarComic extends StatelessWidget {
     @required TabController controller,
     this.forceElevatedBool,
     this.hasBottom,
+    this.title,
   })  : _controller = controller,
         super(key: key);
 
   final TabController _controller;
   final bool forceElevatedBool;
   final bool hasBottom;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +31,19 @@ class SilverAppBarComic extends StatelessWidget {
           onPressed: null,
         )
       ],
-      title: Text(
-        "MangaRee",
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary,
-          fontFamily: "Fascinate",
-        ),
-        textAlign: TextAlign.center,
-      ),
+      title: _titleAppbar(context),
       bottom: _bottomAppBar(context),
+    );
+  }
+
+  Text _titleAppbar(BuildContext context) {
+    return Text(
+      title,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onPrimary,
+        fontFamily: hasBottom ? "Fascinate" : "Farro",
+      ),
+      textAlign: TextAlign.center,
     );
   }
 
