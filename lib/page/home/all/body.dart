@@ -1,6 +1,9 @@
 import 'package:comic/graphql/query/comics.dart';
+import 'package:comic/page/home/all/bloc/allbloc_bloc.dart';
+import 'package:comic/page/home/all/bloc/allbloc_state.dart';
 import 'package:comic/page/home/all/item-image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'item-detail.dart';
@@ -13,12 +16,27 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: BodyQuery(),
+      child: BlocListener<AllblocBloc, AllblocState>(
+        child: BlocBuilder<AllblocBloc, AllblocState>(
+          builder: (BuildContext context, AllblocState state) {
+            int defaultState = 0;
+            if (state is ChangedSortAllBy) {
+              defaultState = state.value;
+            }
+            return BodyQuery(sortValue: defaultState);
+          },
+        ),
+        listener: (BuildContext context, AllblocState state) {},
+      ),
     );
   }
 }
 
 class BodyQuery extends StatelessWidget {
+  final int sortValue;
+
+  const BodyQuery({Key key, this.sortValue}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -31,14 +49,13 @@ class BodyQuery extends StatelessWidget {
       options: QueryOptions(
         document: readComics,
         fetchPolicy: FetchPolicy.cacheFirst,
-        variables: {"first": 21, "orderBy": "title_ASC"},
+        variables: {
+          "first": 21,
+          "orderBy": sortValue == 0 ? "title_ASC" : "rating_DESC"
+        },
       ),
     );
   }
-}
-
-enum WhyFarther {
-  read,
 }
 
 class BodyBuilder extends StatelessWidget {
@@ -62,7 +79,7 @@ class BodyBuilder extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              ItemImage(comics: comics, index: index),
+              Expanded(flex: 4, child: ItemImage(comics: comics, index: index)),
               ItemDetail(comics: comics, index: index),
             ],
           ),

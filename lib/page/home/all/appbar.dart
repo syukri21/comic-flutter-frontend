@@ -1,6 +1,8 @@
 import 'package:comic/graphql/query/count-comics.dart';
+import 'package:comic/page/home/all/bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class Appbar extends StatelessWidget {
@@ -18,40 +20,67 @@ class Appbar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           CountMangaQuery(),
-          PopupMenuButton(
-            elevation: 10,
-            child: Container(
-              width: 50,
-              alignment: Alignment.centerRight,
-              child: Icon(Icons.filter_list),
-            ),
-            padding: const EdgeInsets.all(0),
-            initialValue: 0,
-            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-              PopupMenuItem(
-                enabled: false,
-                value: -1,
-                child: Text(
-                  'Sort By :',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-              ),
-              PopupMenuDivider(),
-              const PopupMenuItem(
-                value: 0,
-                child: Text('Name'),
-              ),
-              const PopupMenuItem(
-                value: 1,
-                child: Text('Rank'),
-              ),
-            ],
-          ),
+          SortByMenu(),
         ],
       ),
     );
+  }
+}
+
+class SortByMenu extends StatelessWidget {
+  const SortByMenu({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AllblocBloc, AllblocState>(
+      builder: (BuildContext context, AllblocState state) {
+        int defaultState = 0;
+
+        if (state is ChangedSortAllBy) {
+          defaultState = state.value;
+        }
+        return PopupMenuButton(
+          elevation: 10,
+          child: Container(
+            width: 50,
+            alignment: Alignment.centerRight,
+            child: Icon(Icons.filter_list),
+          ),
+          padding: const EdgeInsets.all(0),
+          initialValue: defaultState,
+          onSelected: (value) =>
+              _handleSortMenuBy(value: value, context: context),
+          itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+            PopupMenuItem(
+              enabled: false,
+              value: -1,
+              child: Text(
+                'Sort By:',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
+            PopupMenuDivider(),
+            const PopupMenuItem(
+              value: 0,
+              child: Text('Name'),
+            ),
+            const PopupMenuItem(
+              value: 1,
+              child: Text('Rating'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _handleSortMenuBy({int value, BuildContext context}) {
+    final allblocBloc = BlocProvider.of<AllblocBloc>(context);
+    allblocBloc.dispatch(SortAllBy(value));
   }
 }
 

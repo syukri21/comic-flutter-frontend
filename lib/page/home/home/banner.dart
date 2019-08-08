@@ -42,8 +42,8 @@ class BannerCarouselQuery extends StatelessWidget {
     return QueryOptions(
       document: comicsOnBanner,
       variables: {
-        'first': 4,
-        'orderBy': 'hits_DESC',
+        'first': 5,
+        'orderBy': 'author_ASC',
       },
     );
   }

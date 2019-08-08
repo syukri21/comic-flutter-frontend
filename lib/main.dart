@@ -1,6 +1,8 @@
 import 'package:comic/graphql/graphql.dart';
+import 'package:comic/page/home/all/bloc/allbloc_bloc.dart';
 import 'package:comic/page/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() {
@@ -13,11 +15,14 @@ class ComicApp extends StatelessWidget {
     return GraphQLProvider(
       client: GraphQL.client,
       child: CacheProvider(
-        child: MaterialApp(
-          title: "Comic",
-          initialRoute: "/",
-          routes: {"/": (context) => Pages()},
-          theme: _theme(),
+        child: BlocProvider<AllblocBloc>(
+          builder: (BuildContext context) => AllblocBloc(),
+          child: MaterialApp(
+            title: "Comic",
+            initialRoute: "/",
+            routes: {"/": (context) => Pages()},
+            theme: _theme(),
+          ),
         ),
       ),
     );

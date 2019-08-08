@@ -23,7 +23,6 @@ class ItemImage extends StatelessWidget {
           ),
           child: Image(
             image: porvider,
-            height: 180,
             fit: BoxFit.cover,
           ),
         );
