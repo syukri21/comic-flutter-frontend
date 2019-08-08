@@ -1,7 +1,8 @@
-import 'package:comic/page/home/all/all-appbar.dart';
-import 'package:comic/page/home/all/all-body.dart';
+import 'package:comic/page/home/all/appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'body.dart';
 
 class All extends StatelessWidget {
   @override
@@ -11,8 +12,8 @@ class All extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         shrinkWrap: true,
         children: <Widget>[
-          AllAppbar(),
-          AllBody(),
+          Appbar(),
+          Body(),
         ],
       ),
     );

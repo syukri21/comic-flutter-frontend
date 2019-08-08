@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class AllAppbar extends StatelessWidget {
-  const AllAppbar({
+class Appbar extends StatelessWidget {
+  const Appbar({
     Key key,
   }) : super(key: key);
 
