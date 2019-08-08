@@ -79,7 +79,7 @@ class BodyBuilder extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Expanded(flex: 4, child: ItemImage(comics: comics, index: index)),
+              Expanded(flex: 3, child: ItemImage(comics: comics, index: index)),
               ItemDetail(comics: comics, index: index),
             ],
           ),
