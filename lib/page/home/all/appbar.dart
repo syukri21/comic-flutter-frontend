@@ -1,7 +1,7 @@
+import 'package:comic/global/count-manga/index.dart';
 import 'package:comic/global/popup-menu-item-text/index.dart';
 import 'package:comic/graphql/query/count-comics.dart';
 import 'package:comic/page/home/all/bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -108,26 +108,6 @@ class AllPopupMenuButton extends StatelessWidget {
   void _handleSortMenuBy({int value, BuildContext context}) {
     final allblocBloc = BlocProvider.of<AllblocBloc>(context);
     allblocBloc.dispatch(SortAllBy(value));
-  }
-}
-
-class CountManga extends StatelessWidget {
-  final String count;
-  const CountManga({
-    Key key,
-    this.count,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      """$count manga""",
-      style: TextStyle(
-        fontFamily: "Farro",
-        fontSize: 14,
-        color: Theme.of(context).colorScheme.secondaryVariant,
-      ),
-    );
   }
 }
 

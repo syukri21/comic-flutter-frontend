@@ -3,7 +3,6 @@ import 'package:comic/page/bookmark/index.dart';
 import 'package:comic/page/download/index.dart';
 import 'package:comic/page/history/index.dart';
 import 'package:comic/page/settings/index.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

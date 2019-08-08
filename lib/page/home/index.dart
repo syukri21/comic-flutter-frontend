@@ -1,6 +1,5 @@
 import 'package:comic/page/home/home/index.dart';
 import 'package:comic/page/home/new-update/index.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'all/index.dart';

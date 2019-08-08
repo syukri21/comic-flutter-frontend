@@ -1,6 +1,5 @@
 import 'package:comic/page/home/new-update/appbar.dart';
 import 'package:comic/page/home/new-update/body.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewUpdate extends StatelessWidget {
