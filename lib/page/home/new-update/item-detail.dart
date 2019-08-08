@@ -1,3 +1,4 @@
+import 'package:comic/helper/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,7 @@ class ItemDetail extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    comics[index]["author"].trim(),
+                    GetDate().relativeRange(comics[index]["updateOn"]),
                     style: TextStyle(
                       fontSize: 10,
                       color: Theme.of(context).colorScheme.secondary,
