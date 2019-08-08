@@ -1,6 +1,6 @@
 import 'package:comic/global/popup-menu-item-text/index.dart';
-import 'package:comic/page/home/all/appbar.dart';
 import 'package:comic/page/home/new-update/bloc/bloc.dart';
+import 'package:comic/page/home/new-update/count-new-update.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +19,7 @@ class Appbar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          CountMangaQuery(),
+          Count(),
           BlocListener<NewUpdateBloc, NewUpdateState>(
             listener: (BuildContext context, NewUpdateState state) {},
             child: BlocBuilder<NewUpdateBloc, NewUpdateState>(
