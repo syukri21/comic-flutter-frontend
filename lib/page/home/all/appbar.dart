@@ -1,3 +1,4 @@
+import 'package:comic/global/popup-menu-item-text/index.dart';
 import 'package:comic/graphql/query/count-comics.dart';
 import 'package:comic/page/home/all/bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,47 +35,73 @@ class SortByMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllblocBloc, AllblocState>(
-      builder: (BuildContext context, AllblocState state) {
-        int defaultState = 0;
+    return BlocListener<AllblocBloc, AllblocState>(
+      listener: (BuildContext context, AllblocState state) {},
+      child: BlocBuilder<AllblocBloc, AllblocState>(
+        builder: (BuildContext context, AllblocState state) {
+          int defaultState = 0;
 
-        if (state is ChangedSortAllBy) {
-          defaultState = state.value;
-        }
-        return PopupMenuButton(
-          elevation: 10,
-          child: Container(
-            width: 50,
-            alignment: Alignment.centerRight,
-            child: Icon(Icons.filter_list),
+          if (state is ChangedSortAllBy) {
+            defaultState = state.value;
+          }
+          return new AllPopupMenuButton(
+            defaultState: defaultState,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class AllPopupMenuButton extends StatelessWidget {
+  const AllPopupMenuButton({
+    Key key,
+    @required this.defaultState,
+    this.allblocBloc,
+  }) : super(key: key);
+
+  final int defaultState;
+  final AllblocBloc allblocBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      elevation: 10,
+      child: Container(
+        width: 50,
+        alignment: Alignment.centerRight,
+        child: Icon(Icons.filter_list),
+      ),
+      padding: const EdgeInsets.all(0),
+      onSelected: (value) => _handleSortMenuBy(context: context, value: value),
+      offset: Offset(0, 0),
+      itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+        PopupMenuItem(
+          enabled: false,
+          value: -1,
+          child: Text(
+            'Sort By',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
-          padding: const EdgeInsets.all(0),
-          initialValue: defaultState,
-          onSelected: (value) =>
-              _handleSortMenuBy(value: value, context: context),
-          itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-            PopupMenuItem(
-              enabled: false,
-              value: -1,
-              child: Text(
-                'Sort By:',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            PopupMenuDivider(),
-            const PopupMenuItem(
-              value: 0,
-              child: Text('Name'),
-            ),
-            const PopupMenuItem(
-              value: 1,
-              child: Text('Rating'),
-            ),
-          ],
-        );
-      },
+        ),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+          value: 0,
+          child: PopupMenuItemText(
+            title: "Name",
+            isActive: defaultState == 0,
+          ),
+        ),
+        PopupMenuItem(
+          value: 1,
+          child: PopupMenuItemText(
+            title: "Rating",
+            isActive: defaultState == 1,
+          ),
+        ),
+      ],
     );
   }
 

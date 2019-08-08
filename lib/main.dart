@@ -1,5 +1,6 @@
 import 'package:comic/graphql/graphql.dart';
 import 'package:comic/page/home/all/bloc/allbloc_bloc.dart';
+import 'package:comic/page/home/new-update/bloc/bloc.dart';
 import 'package:comic/page/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,11 +18,14 @@ class ComicApp extends StatelessWidget {
       child: CacheProvider(
         child: BlocProvider<AllblocBloc>(
           builder: (BuildContext context) => AllblocBloc(),
-          child: MaterialApp(
-            title: "Comic",
-            initialRoute: "/",
-            routes: {"/": (context) => Pages()},
-            theme: _theme(),
+          child: BlocProvider<NewUpdateBloc>(
+            builder: (BuildContext context) => NewUpdateBloc(),
+            child: MaterialApp(
+              title: "Comic",
+              initialRoute: "/",
+              routes: {"/": (context) => Pages()},
+              theme: _theme(),
+            ),
           ),
         ),
       ),
