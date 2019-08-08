@@ -9,7 +9,7 @@ class Appbar extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return Container(
       margin: EdgeInsets.all(0),
       padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
@@ -18,14 +18,36 @@ class Appbar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           CountMangaQuery(),
-          GestureDetector(
+          PopupMenuButton(
+            elevation: 10,
             child: Container(
-              child: Icon(
-                Icons.filter_list,
-                color: Theme.of(context).colorScheme.secondaryVariant,
-                size: 20,
-              ),
+              width: 50,
+              alignment: Alignment.centerRight,
+              child: Icon(Icons.filter_list),
             ),
+            padding: const EdgeInsets.all(0),
+            initialValue: 0,
+            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+              PopupMenuItem(
+                enabled: false,
+                value: -1,
+                child: Text(
+                  'Sort By :',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+              PopupMenuDivider(),
+              const PopupMenuItem(
+                value: 0,
+                child: Text('Name'),
+              ),
+              const PopupMenuItem(
+                value: 1,
+                child: Text('Rank'),
+              ),
+            ],
           ),
         ],
       ),

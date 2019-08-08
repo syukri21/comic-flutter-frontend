@@ -14,6 +14,7 @@ class ForYou extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListView(
+        padding: EdgeInsets.symmetric(vertical: 10),
         shrinkWrap: true,
         children: <Widget>[
           BannerCarouselQuery(),
