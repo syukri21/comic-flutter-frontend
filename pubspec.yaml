@@ -28,9 +28,7 @@ dependencies:
   graphql_flutter: ^2.0.0
   graphql: ^2.0.0
   shimmer: ^1.0.0
-  transparent_image: ^1.0.0
   cached_network_image: ^1.1.1
-  flutter_svg: ^0.13.1
   bloc: ^0.14.0
   flutter_bloc: ^0.20.0
   equatable: ^0.3.0

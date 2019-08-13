@@ -77,6 +77,8 @@ class BannerItem extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 15,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       getYearFromString(item["released"]),
