@@ -33,6 +33,9 @@ dependencies:
   flutter_bloc: ^0.20.0
   equatable: ^0.3.0
   smooth_star_rating: 1.0.3
+  localstorage: ^2.0.0
+  
+
 
 
 

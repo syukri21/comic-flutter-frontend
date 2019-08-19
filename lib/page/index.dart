@@ -22,7 +22,6 @@ class _PagesState extends State<Pages> with TickerProviderStateMixin {
   TabController _controller;
   TabController _bottomTabController;
   ScrollController _scrollController;
-  PageController _pageController;
 
   int _currentIndex = 0;
 
@@ -40,13 +39,6 @@ class _PagesState extends State<Pages> with TickerProviderStateMixin {
     setState(() {
       _currentIndex = n;
     });
-    if (_pageController.hasClients) {
-      _pageController.animateToPage(
-        n,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.slowMiddle,
-      );
-    }
   }
 
   @override
@@ -63,30 +55,30 @@ class _PagesState extends State<Pages> with TickerProviderStateMixin {
       initialIndex: 0,
     );
     _scrollController = ScrollController();
-    _pageController = PageController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: NestedScrollView(
-          controller: _scrollController,
-          body: tabScreens[_currentIndex],
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SilverAppBarComic(
-                controller: _controller,
-                forceElevatedBool: innerBoxIsScrolled,
-                hasBottom: _currentIndex == 0,
-                title: nameScreens[_currentIndex],
-              ),
-            ];
-          },
-        ),
-        bottomNavigationBar: ComicBottomNavigationBar(
-          currentIndex: _currentIndex,
-          handleChangeCurrentIndex: _handleChangeCurrentIndex,
-        ));
+      body: NestedScrollView(
+        controller: _scrollController,
+        body: tabScreens[_currentIndex],
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SilverAppBarComic(
+              controller: _controller,
+              forceElevatedBool: innerBoxIsScrolled,
+              hasBottom: _currentIndex == 0,
+              title: nameScreens[_currentIndex],
+            ),
+          ];
+        },
+      ),
+      bottomNavigationBar: ComicBottomNavigationBar(
+        currentIndex: _currentIndex,
+        handleChangeCurrentIndex: _handleChangeCurrentIndex,
+      ),
+    );
   }
 
   @override
@@ -94,7 +86,6 @@ class _PagesState extends State<Pages> with TickerProviderStateMixin {
     _controller.dispose();
     _scrollController.dispose();
     _bottomTabController.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 }

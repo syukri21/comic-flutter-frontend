@@ -23,7 +23,9 @@ class ComicApp extends StatelessWidget {
             child: MaterialApp(
               title: "Comic",
               initialRoute: "/",
-              routes: {"/": (context) => Pages()},
+              routes: {
+                "/": (context) => Pages(),
+              },
               theme: _theme(),
             ),
           ),

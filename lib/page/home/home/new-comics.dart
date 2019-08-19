@@ -1,4 +1,5 @@
 import 'package:comic/graphql/query/comic-with-chapter.dart';
+import 'package:comic/page/manga/index.dart';
 
 import 'package:flutter/material.dart';
 
@@ -59,10 +60,22 @@ class ListComics extends StatelessWidget {
         itemCount: comics.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          return Comic(
-            item: this.comics[index],
-            length: this.comics.length,
-            index: index,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Manga(
+                    mangaId: this.comics[index]["id"],
+                  ),
+                ),
+              );
+            },
+            child: Comic(
+              item: this.comics[index],
+              length: this.comics.length,
+              index: index,
+            ),
           );
         },
       ),
