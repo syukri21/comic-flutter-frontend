@@ -42,7 +42,7 @@ class MangaQuery extends StatelessWidget {
         if (result.loading) return Text("");
 
         var comic = result.data["comic"];
-        return new MangaBuilder(comic: comic);
+        return new MangaBuilder(comic: comic, genres: comic["genres"]);
       },
     );
   }
@@ -52,12 +52,27 @@ class MangaBuilder extends StatelessWidget {
   const MangaBuilder({
     Key key,
     @required this.comic,
+    this.genres,
   }) : super(key: key);
 
   final comic;
+  final genres;
+
+  EdgeInsets margin(index) {
+    if (index == 0) {
+      return EdgeInsets.only(left: 16);
+    }
+
+    if (index == genres.length - 1) {
+      return EdgeInsets.only(right: 16, left: 8);
+    }
+
+    return EdgeInsets.only(left: 8);
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(genres.length);
     return Scaffold(
       body: NestedScrollView(
         body: ListView(
@@ -73,18 +88,56 @@ class MangaBuilder extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        "Ringkasan",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Ringkasan",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                       Divider(height: 8),
-                      Text(comic["synopsis"],
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 14))
+                      Text(
+                        comic["synopsis"],
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(fontSize: 14),
+                      )
                     ],
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  alignment: Alignment.center,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: this.margin(index),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              genres[index]["genre"],
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: genres.length,
                   ),
                 )
               ],
