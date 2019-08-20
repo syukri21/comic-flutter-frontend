@@ -1,8 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comic/page/manga/action.dart';
+import 'package:comic/page/manga/detail.dart';
+import 'package:comic/page/manga/queryComic.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:comic/page/manga/readQuery.dart';
+import 'appbar.dart';
 
 class Manga extends StatelessWidget {
   final String mangaId;
@@ -28,7 +30,7 @@ class MangaQuery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        document: readComic,
+        document: queryComic,
         variables: {
           "where": {"id": id},
           "params": {"OrderBy": "number_DESC", "First": 5}
@@ -37,148 +39,38 @@ class MangaQuery extends StatelessWidget {
       ),
       builder: (QueryResult result, {VoidCallback refetch}) {
         if (result.errors != null) return Text(result.errors.toString());
-        if (result.loading) return Text("Loading..");
+        if (result.loading) return Text("");
 
         var comic = result.data["comic"];
-        return Scaffold(
-          body: NestedScrollView(
-            body: ListView(
-              padding: const EdgeInsets.all(0),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        comic["title"]
-                            .replaceAll("Bahasa Indonesia", "")
-                            .trim(),
-                        style: TextStyle(fontSize: 20, fontFamily: "Farro"),
-                        textAlign: TextAlign.center,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          """Oleh ${comic["author"]} -- ${comic["status"]}""",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: "Farro",
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  pinned: true,
-                  forceElevated: innerBoxIsScrolled,
-                  floating: true,
-                  title: Text("Bangsat"),
-                ),
-                SliverAppBar(
-                  expandedHeight: 300,
-                  pinned: false,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace: Stack(
-                    children: <Widget>[
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 3,
-                            child: FlexibleSpaceBar(
-                              background: CachedNetworkImage(
-                                imageUrl: comic["image"],
-                                imageBuilder:
-                                    (BuildContext context, provider) =>
-                                        Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: provider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: <Color>[
-                                          Theme.of(context).primaryColor,
-                                          Colors.transparent,
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              color: Color(0xffFAFAFA),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 70),
-                            width: 150,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: comic["image"],
-                              fit: BoxFit.cover,
-                              width: 150,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ];
-            },
-          ),
-        );
+        return new MangaBuilder(comic: comic);
       },
     );
   }
 }
 
-class Delegate extends SliverPersistentHeaderDelegate {
+class MangaBuilder extends StatelessWidget {
+  const MangaBuilder({
+    Key key,
+    @required this.comic,
+  }) : super(key: key);
+
+  final comic;
+
   @override
-  Widget build(
-          BuildContext context, double shrinkOffset, bool overlapsContent) =>
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Container(
-          color: Colors.yellow,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: NestedScrollView(
+        body: ListView(
+          padding: const EdgeInsets.all(0),
+          children: <Widget>[
+            MangaDetail(comic: comic),
+            MangaAction(comicId: comic["id"]),
+          ],
         ),
-      );
-
-  @override
-  double get maxExtent => 100;
-
-  @override
-  double get minExtent => 30;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return mangaAppbar(innerBoxIsScrolled, comic);
+        },
+      ),
+    );
+  }
 }

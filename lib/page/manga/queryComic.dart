@@ -1,4 +1,4 @@
-const String readComic = """
+const String queryComic = """
   query readComic(\$where: ComicWhereUniqueInput!, \$params: ChaptersParamsExec) {
     comic(where: \$where) {
       id
