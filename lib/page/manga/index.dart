@@ -65,11 +65,51 @@ class MangaBuilder extends StatelessWidget {
           children: <Widget>[
             MangaDetail(comic: comic),
             MangaAction(comicId: comic["id"]),
+            CustomDivider(),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Ringkasan",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Divider(height: 8),
+                      Text(comic["synopsis"],
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontSize: 14))
+                    ],
+                  ),
+                )
+              ],
+            )
           ],
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return mangaAppbar(innerBoxIsScrolled, comic);
         },
+      ),
+    );
+  }
+}
+
+class CustomDivider extends StatelessWidget {
+  const CustomDivider({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
       ),
     );
   }

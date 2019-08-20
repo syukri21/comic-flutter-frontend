@@ -23,7 +23,6 @@ class MangaActionQuery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(comicId);
     return Query(
       options: QueryOptions(document: queryCountChapters, variables: {
         "where": {
@@ -47,50 +46,53 @@ class MangaActionBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        FlatButton(
-          child: Column(
-            children: <Widget>[
-              Icon(
-                Icons.play_arrow,
-                color: Theme.of(context).primaryColor,
-                size: 30,
-              ),
-              Text("Read"),
-            ],
+    return ButtonTheme(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: ButtonBar(
+        alignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          FlatButton(
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.play_arrow,
+                  color: Theme.of(context).primaryColor,
+                  size: 30,
+                ),
+                Text("Read"),
+              ],
+            ),
+            onPressed: null,
           ),
-          onPressed: null,
-        ),
-        FlatButton(
-          child: Column(
-            children: <Widget>[
-              Icon(
-                Icons.list,
-                color: Theme.of(context).primaryColor,
-                size: 30,
-              ),
-              Text("$countChapters Chapter"),
-            ],
+          FlatButton(
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.list,
+                  color: Theme.of(context).primaryColor,
+                  size: 30,
+                ),
+                Text("$countChapters Chapter"),
+              ],
+            ),
+            onPressed: null,
           ),
-          onPressed: null,
-        ),
-        FlatButton(
-          child: Column(
-            children: <Widget>[
-              Icon(
-                Icons.favorite_border,
-                color: Theme.of(context).primaryColor,
-                size: 30,
-              ),
-              Text("Favorite"),
-            ],
-          ),
-          onPressed: null,
-        )
-      ],
+          FlatButton(
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.favorite_border,
+                  color: Theme.of(context).primaryColor,
+                  size: 30,
+                ),
+                Text("Favorite"),
+              ],
+            ),
+            onPressed: null,
+          )
+        ],
+      ),
     );
   }
 }

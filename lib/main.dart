@@ -50,8 +50,8 @@ class ComicApp extends StatelessWidget {
         onError: Color(0xffffffff),
         onPrimary: Color(0xffffffff),
         onSecondary: Color(0xffffffff),
-        onSurface: Color(0xff2C2F33),
-        surface: Color(0xffffffff),
+        onSurface: Color(0xff000000),
+        surface: Color(0xffEDEDED),
       ),
     );
   }
