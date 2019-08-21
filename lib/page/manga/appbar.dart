@@ -64,7 +64,7 @@ List<Widget> mangaAppbar(bool innerBoxIsScrolled, comic) {
                 width: 150,
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xffFAFAFA),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: CachedNetworkImage(
