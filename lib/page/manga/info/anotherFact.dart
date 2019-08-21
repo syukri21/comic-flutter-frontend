@@ -65,12 +65,17 @@ class AnotherFactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: Text(label)),
+        Expanded(
+            child: Align(alignment: Alignment.topLeft, child: Text(label))),
         Expanded(
           child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(showData.trim()),
+            alignment: Alignment.topRight,
+            child: Text(
+              showData.trim(),
+              textAlign: TextAlign.end,
+            ),
           ),
         ),
       ],
