@@ -1,5 +1,7 @@
+import 'package:comic/page/manga/info/anotherFact.dart';
 import 'package:flutter/material.dart';
 
+import 'info/author.dart';
 import 'info/genres.dart';
 import 'info/statistic.dart';
 import 'info/summary.dart';
@@ -21,6 +23,8 @@ class MangaInfo extends StatelessWidget {
         Summary(comic: comic),
         Genres(genres: genres),
         Statistic(comic: comic),
+        Author(comic: comic),
+        AnotherFact(comic: comic),
       ],
     );
   }
