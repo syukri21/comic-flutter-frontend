@@ -9,6 +9,11 @@ List<Widget> mangaAppbar(bool innerBoxIsScrolled, comic) {
     SliverAppBar(
       expandedHeight: expandedHeight,
       pinned: true,
+      title: Text(
+        comic["title"].trim(),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
       automaticallyImplyLeading: true,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -39,14 +44,7 @@ class MangaAppbarFlexible extends StatelessWidget {
   }
 
   double get opacity {
-    int flex = bottomBackgroundFlex - 2;
-    if (flex > 31) {
-      flex = 31;
-    } else if (flex < 1) {
-      flex = 0;
-    }
-
-    return flex / 31;
+    return bottomBackgroundFlex / 31;
   }
 
   @override
@@ -58,7 +56,7 @@ class MangaAppbarFlexible extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              flex: 60,
+              flex: 93,
               child: FlexibleSpaceBar(
                 background: CachedNetworkImage(
                   imageUrl: comic["image"],
