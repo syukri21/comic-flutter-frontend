@@ -56,7 +56,7 @@ class AnotherFactItem extends StatelessWidget {
   final String data;
 
   String get showData {
-    if (data == "") {
+    if (data == "" || data == null) {
       return "Unknown";
     }
     return this.data;
