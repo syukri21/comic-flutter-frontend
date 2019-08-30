@@ -61,7 +61,6 @@ class MangaBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(genres.length);
     return Scaffold(
       body: NestedScrollView(
         body: ListView(
@@ -80,8 +79,6 @@ class MangaBuilder extends StatelessWidget {
     );
   }
 }
-
-
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({

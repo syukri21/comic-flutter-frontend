@@ -3,7 +3,6 @@ class GetDate {
 
   String lastDays(int days) {
     String _lastDays = toDay.subtract(Duration(days: days)).toIso8601String();
-    print(_lastDays);
     return _lastDays;
   }
 

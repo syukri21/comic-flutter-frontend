@@ -48,7 +48,6 @@ class NewUpdatePopupMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(selectedValue);
     return PopupMenuButton(
       elevation: 10,
       child: Container(
