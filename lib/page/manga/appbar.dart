@@ -10,7 +10,7 @@ List<Widget> mangaAppbar(bool innerBoxIsScrolled, comic) {
       expandedHeight: expandedHeight,
       pinned: true,
       title: Text(
-        comic["title"].trim(),
+        comic["title"].replaceAll("Bahasa Indonesia", "").trim(),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
