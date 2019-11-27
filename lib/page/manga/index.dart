@@ -1,6 +1,7 @@
 import 'package:comic/page/manga/action.dart';
 import 'package:comic/page/manga/detail.dart';
 import 'package:comic/page/manga/info.dart';
+import 'package:comic/page/manga/list_chapters.dart';
 import 'package:comic/page/manga/queryComic.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -69,7 +70,8 @@ class MangaBuilder extends StatelessWidget {
             MangaDetail(comic: comic),
             MangaAction(comicId: comic["id"]),
             CustomDivider(),
-            MangaInfo(comic: comic, genres: genres)
+            MangaInfo(comic: comic, genres: genres),
+            // ListChapters(),
           ],
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
